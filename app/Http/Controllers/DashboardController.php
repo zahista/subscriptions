@@ -24,6 +24,18 @@ class DashboardController extends Controller
 
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'platform' => 'required',
+            'price' => 'required|numeric',
+            'billing_at' => 'required|date',
+        ],[
+            'platform.required' => 'Vyplňte prosím platformu',
+            'price.required' => 'Vyplňte prosím cenu',
+            'price.numeric' => 'Cena musí být číslo',
+            'billing_at.required' => 'Vyplňte prosím datum zúčtování',
+            'billing_at.date' => 'Datum zůčtování musí být ve formátu YYYY-MM-DD',
+        ]);
+
         $subscription = Subscription::create([
             'platform' => $request->platform,
             'price' => $request->price,
@@ -33,6 +45,14 @@ class DashboardController extends Controller
        
 
        return redirect()->route('dashboard');   
+    }
+
+    public function destroy(Request $request)
+    {
+        $subscription = Subscription::find($request->id);
+        $subscription->delete();
+
+        return redirect()->route('dashboard');
     }
 
 }

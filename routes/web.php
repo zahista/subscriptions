@@ -22,3 +22,7 @@ Route::get('/dashboard', [DashboardController::class, 'show'])
 Route::post('/dashboard', [DashboardController::class, 'store'])
     ->middleware(['auth'])
     ->name('store.subscription');
+
+Route::post('/subscription_delete', [DashboardController::class, 'destroy'])
+    ->middleware(['auth'])
+    ->name('destroy.subscription');
