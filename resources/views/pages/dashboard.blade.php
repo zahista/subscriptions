@@ -13,8 +13,8 @@
             <div class="grid grid-cols-3 gap-2">
                 @foreach ($subscriptions as $subscription)
                     <x-tile title="{{ $subscription->platform }}" description="{{ $subscription->price }}">
-
                         <x-modal title="Jste si jistý touto akcí?" action="Smazat">
+                            
                             <form action="/subscription_delete" method="POST">
                                 @csrf
                                 <input type="hidden" value="{{ $subscription->id }}" name="id">
@@ -25,7 +25,6 @@
                             </form>
 
                         </x-modal>
-
                     </x-tile>
                 @endforeach
             </div>
@@ -41,11 +40,6 @@
 
                     <x-buttons.primary type="submit">Vytvořit</x-buttons.primary>
                 </form>
-            </x-modal>
-
-
-            <x-modal title="toto je test" action="otevřít testovací modal">
-                <p>Jsem uvniřt modálního okna</p>
             </x-modal>
         </div>
     </div>
