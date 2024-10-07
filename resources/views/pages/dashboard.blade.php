@@ -1,0 +1,39 @@
+<x-layouts.app>
+
+    <div class="flex items-center w-full justify-between mb-6">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-700">{{ $price }} Kč / měsíc</h1>
+            <h3 class="text-sm text-gray-500">Celkový počet plateb {{ $subscriptions->count() }}</h3>
+        </div>
+    </div>
+
+    <div class="flex gap-4">
+
+        <div class="w-2/3">
+            <div class="grid grid-cols-3 gap-2">
+                @foreach ($subscriptions as $subscription)
+                    <x-tile title="{{ $subscription->platform }}" description="{{ $subscription->price }}" />
+                @endforeach
+            </div>
+
+            <x-modal title="Vyvtořit nový záznám" action="Vytvořit nový záznam">
+                <form action="/dashboard" method="POST" class="rounded-lg w-full *:mb-4">
+                    @csrf
+                    <x-input type="text" name="platform" placeholder="Platforma" />
+
+                    <x-input type="number" name="price" placeholder="Cena za měsíc" />
+
+                    <x-input type="date" name="billing_at" placeholder="Kdy se účtuje?" />
+
+                    <x-buttons.primary type="submit">Vytvořit</x-buttons.primary>
+                </form>
+            </x-modal>
+
+
+            <x-modal title="toto je test" action="otevřít testovací modal">
+                <p>Jsem uvniřt modálního okna</p>
+            </x-modal>
+        </div>
+    </div>
+    
+</x-layouts.app>
